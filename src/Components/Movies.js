@@ -1,21 +1,33 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import Movie from "./Movie";
+
 export default function Movies() {
-    // function allCine() {
-    //     const pegar = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies")
-    //     pegar.then(renderizarFilmes)
-    // }
-    // allCine();
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        const promise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
+
+        promise.then((response) => {
+            setImages([...response.data]);
+        });
+        promise.catch((error) =>
+            console.log(error.response.data));
+    }, []);
+
     return (
         <>
             <Title>Selecione o filme</Title>
-            <ListMovies>
-                <li>oiiiiiii</li>
-                <li>oiiiii</li>
-                <li>oiiiiiii</li>
-                <li>oiiiiii</li>
-                <li>oiiii</li>
-                <li>oiiiii</li>
-            </ListMovies>
+
+            {images.map(item =>
+                <Movie
+                    key={item.id}
+                    item={item}
+                />)
+            }
+
         </>
     )
 }
@@ -28,16 +40,4 @@ margin-top:28%;
 font-family: 'Roboto', sans-serif;
 font-size: 20px;
 color: #22333b;
-`
-const ListMovies = styled.ul`
-margin-top:10%;
-/* margin-left: 15%;
-margin-right:15%; */
-padding: 15%;
-display:flex;
-flex-wrap: wrap;
-li{
-    width:129px;
-    height:193px;
-}
 `
