@@ -3,28 +3,20 @@ import styled from "styled-components";
 
 export default function Movie({ item }) {
     return (
-        <ListMovies>
-            <Link to="/section">
-                <img src={item.posterURL} alt={item.title} />
+        <>
+            <Link to={`/sections/${item.id}`}>
+                <ImageMovie src={item.posterURL} alt={item.title} />
             </Link>
-        </ListMovies>
+        </>
     )
 }
-const ListMovies = styled.div`
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-margin-top:10%;
-width:100%;
 
-/* margin-left: 15%;
-margin-right:15%; */
-padding: 1%;
-display:flex;
-flex-wrap: wrap;
-
-img{
+const ImageMovie = styled.img`
     width:129px;
     height:193px;
-}
+    margin-bottom:20%;
+    padding: 8px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 `

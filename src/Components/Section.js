@@ -1,47 +1,37 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export default function Section() {
+import { Link } from "react-router-dom";
+export default function Section({ weekday, date, showtimes }) {
+
     return (
         <>
-            <Title>Selecione o horário</Title>
-            <DaySection>
-                <DayTitle>Quinta-feira - 24/06/2021</DayTitle>
-                <DayButton>15:00</DayButton>
-                <DayButton>19:00</DayButton>
-            </DaySection>
+            <DayTitle>{weekday} - {date}</DayTitle>
+
+            {showtimes.map((item, index) => <Link to="/seats" style={{textDecoration : 'none'}} key={index}><DayButton >{item.name}</DayButton></Link>)}
+
+
         </>
+
     )
 }
-const Title = styled.h1`
-display:flex;
-justify-content:center;
-
-margin-top:28%;
-font-family: 'Roboto', sans-serif;
-font-size: 20px;
-color: #22333b;
-`
-const DaySection = styled.div`
-  padding: 0 23px;
-  margin-top:15%;
-  margin-bottom: 117px;
-`
 const DayTitle = styled.p`
 font-family: 'Roboto', sans-serif;
 color: #293845;
 font-size: 20px;
-margin: 0 0 22px;
 `
 const DayButton = styled.button`
  background-color: #E8833A;
   border-radius: 3px;
+  border:none;
   width: 83px;
   height: 43px;
   display: inline;
   flex-direction: row;
   justify-content: center;
+  text-decoration:inherit;
   align-items: center;
   color: #fff;
   margin-right: 8px;
+  margin-bottom: 2%;
   cursor: pointer;
 `

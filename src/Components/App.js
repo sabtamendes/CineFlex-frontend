@@ -2,7 +2,8 @@ import GlobalStyle from "../assets/css/GlobalStyle";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Movies from "./Movies";
-import Section from "./Section";
+import Sections from "./Sections";
+import Seats from "./Seats";
 export default function App() {
 
     return (
@@ -13,7 +14,8 @@ export default function App() {
 
             <Routes>
                 <Route path="/" element={<Movies />} />
-                <Route path="/section" element={<Section />} />
+                <Route path="/sections/:id" element={<Sections />} />
+                <Route path="/seats" element={<Seats />} />
             </Routes>
 
         </BrowserRouter>
