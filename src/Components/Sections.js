@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import Section from "./Section";
 import { useEffect, useState } from "react";
-
 import { useParams } from "react-router-dom";
 import { getSections } from "../services/getSections";
+
 export default function Sections() {
     const [dataSection, setDataSection] = useState([]);
     const { id } = useParams();
@@ -23,7 +23,7 @@ export default function Sections() {
         sections()
     }, [])
     if (dataSection.length === 0) {
-        return <div>Erro na requisição! Tente de novo</div>
+        return <Loading>Carregando...</Loading>
     }
 
     return (
@@ -56,4 +56,9 @@ const DaySection = styled.div`
   padding: 0 83px;
   margin-top:10%;
   margin-bottom: 117px;
+`
+const Loading = styled.h1`
+margin-top:30%;
+font-size:20px;
+
 `

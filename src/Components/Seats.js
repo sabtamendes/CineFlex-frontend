@@ -1,22 +1,42 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { getSeats } from "../services/getSeats";
+import Seat from "./Seat";
+import Footer from "./Footer";
 export default function Seats() {
-  
+    const [seat, setSeat] = useState(undefined);
+    const { id } = useParams();
+
+    useEffect(() => {
+        async function seats() {
+            try {
+                const chair = await getSeats(id);
+                setSeat(chair)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        seats();
+    }, [])
+
+    if (seat === undefined) {
+        return <Loading>Carregando..</Loading>
+    }
     return (
         <>
             <Title>Selecione o(s) assento(s)</Title>
-            <SeatsChooser>
-            <EachSeat>1</EachSeat>
-            <EachSeat>2</EachSeat>
-            <EachSeat>3</EachSeat>
-            <EachSeat>4</EachSeat>
-            <EachSeat>5</EachSeat>
-            <EachSeat>1</EachSeat>
-            <EachSeat>2</EachSeat>
-            <EachSeat>3</EachSeat>
-            <EachSeat>4</EachSeat>
-            <EachSeat>5</EachSeat>
 
+            <SeatsChooser>
+                {seat.map(item =>
+                    <Seat
+                        key={item.id}
+                        item={item}
+                    />
+                )}
             </SeatsChooser>
+            <Footer name={seat.name} isAvaliable={seat.isAvailable} />
         </>
     )
 }
@@ -36,18 +56,7 @@ const SeatsChooser = styled.div`
   flex-wrap: wrap;
   width: 85%;
 `
-const EachSeat = styled.button`
-  width: 52px;
-  height: 52px;
-  border: 1px solid #808F9D;
-  background-color: #C3CFD9;
-  border-radius: 50%;
-  font-size: 25px;
-  color: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  margin-right: 8px;
-  cursor: pointer;
+const Loading = styled.h1`
+margin-top:30%;
+font-size:20px;
 `

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
+const url = "https://mock-api.driven.com.br/api/v5/cineflex/movies";
 
 async function getMovies() {
     try {

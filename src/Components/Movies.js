@@ -29,7 +29,7 @@ export default function Movies() {
     }, []);
 
     if (images === undefined) {
-        return <div>Carregando..</div>
+        return <Loading>Carregando..</Loading>
     }
     return (
         <>
@@ -63,4 +63,8 @@ flex-wrap:wrap;
 cursor: pointer;
 
 margin-top:10%;
+`
+const Loading = styled.h1`
+margin-top:30%;
+font-size:20px;
 `
