@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-export default function Seat({ item }) {
-  console.log(item)
+export default function Seat({ name, isAvaliable }) {
   return (
-    <Link to={`/sections/${item.id}`}>
-      <EachSeat>{item.name}</EachSeat>
-    </Link>
+    <>
+      <Link to={`/forms/${isAvaliable}`} style={{ textDecoration: 'none' }}>
+        <EachSeat>{name}</EachSeat>
+      </Link>
+    </>
   )
 }
 

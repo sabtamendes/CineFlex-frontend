@@ -6,15 +6,14 @@ import { useParams } from "react-router-dom";
 import { getSections } from "../services/getSections";
 
 export default function Sections() {
-    const [dataSection, setDataSection] = useState([]);
+    const [showtimes, setShowTimes] = useState(undefined);
     const { id } = useParams();
 
     useEffect(() => {
         async function sections() {
             try {
                 const movies = await getSections(id);
-
-                setDataSection(movies)
+                setShowTimes(movies)
             } catch (error) {
                 console.log(error)
             }
@@ -22,24 +21,24 @@ export default function Sections() {
 
         sections()
     }, [])
-    if (dataSection.length === 0) {
+    if (showtimes === undefined) {
         return <Loading>Carregando...</Loading>
     }
-
+console.log(showtimes.title)
     return (
         <>
             <Title>Selecione o horário</Title>
             <DaySection >
-                {dataSection.days.map((item) =>
+                {showtimes.days.map((item, index) =>
                     <Section
-                        key={item.id}
+                        key={index}
                         weekday={item.weekday}
                         date={item.date}
                         showtimes={item.showtimes}
                     />
                 )}
             </DaySection>
-            <Footer dataSection={dataSection} />
+            <Footer posterURL={showtimes.posterURL} title={showtimes.title}/>
         </>
     )
 }

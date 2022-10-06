@@ -1,13 +1,12 @@
 import styled from "styled-components";
-
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 export default function Section({ weekday, date, showtimes }) {
-
+const {id} = useParams()
     return (
         <>
             <DayTitle>{weekday} - {date}</DayTitle>
 
-            {showtimes.map((item, index) => <Link to="/seats" style={{textDecoration : 'none'}} key={index}><DayButton >{item.name}</DayButton></Link>)}
+            {showtimes.map((item, index) => <Link to={`/seats/${id}`} style={{textDecoration : 'none'}} key={index}><DayButton >{item.name}</DayButton></Link>)}
 
 
         </>
