@@ -1,21 +1,35 @@
-import { Link } from "react-router-dom"
-import styled from "styled-components"
+import { useState } from "react";
+import styled from "styled-components";
 
 export default function Seat({ name, isAvaliable }) {
-  return (
-    <>
-      <Link to={`/forms/${isAvaliable}`} style={{ textDecoration: 'none' }}>
-        <EachSeat>{name}</EachSeat>
-      </Link>
-    </>
-  )
+    const [colorSelected, setColorSelected] = useState(false);
+
+    function isSelected(name) {
+        if (name) {
+            setColorSelected(!colorSelected);
+        } else {
+            console.log("numeração do assento indisponivel", name)
+        } if (!isAvaliable) {
+            alert("Não está disponível")
+            console.log(isAvaliable, name)
+        }else{
+            console.log("está disponível", name)
+        }
+    }
+    return (
+        <>
+            <EachSeat onClick={() => isSelected(name)} isAvaliable={isAvaliable} colorSelected={colorSelected} >{name}</EachSeat>
+
+        </>
+    )
 }
 
 const EachSeat = styled.button`
   width: 52px;
   height: 52px;
   border: 1px solid #808F9D;
-  background-color: #C3CFD9;
+  background: ${props => props.isAvaliable ? '#C3CFD9' : '#F7C52B'};
+  background-color: ${props => props.colorSelected ? '#1AAE9E' : '' };
   border-radius: 50%;
   font-size: 25px;
   color: #000000;

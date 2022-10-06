@@ -16,8 +16,8 @@ export default function App() {
 
             <Routes>
                 <Route path="/" element={<Movies />} />
-                <Route path="/sections/:id" element={<Sections />} />
-                <Route path="/seats/:id" element={<Seats />} />
+                <Route path="/sections/:sectionId" element={<Sections />} />
+                <Route path="/seats/:seatsId" element={<Seats />} />
                 <Route path="/forms" element={<Forms />} />
                 <Route path="*" element={<NoPageFound />}/>
             </Routes>

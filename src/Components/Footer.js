@@ -1,16 +1,19 @@
 import styled from "styled-components";
-export default function Footer({ posterURL, title, name, day, moviePoster, movieTitle }) {
- 
+export default function Footer({ posterURL, title, name, day }) {
+
+  console.log(posterURL)
+  console.log(title)
+  
   return (
     <Container>
       <Movie>
-        {posterURL ?
-          <img src={posterURL} /> : <img src={moviePoster} />}
+
+        <img src={posterURL} />
       </Movie>
 
       <Info>
 
-        {title ? <span>{title}</span> : <span>{movieTitle}</span>}
+        <span>{title}</span>
 
         {name ?
           <span>
@@ -32,6 +35,7 @@ const Container = styled.div`
   background-color: #dfe6ed;
   padding: 14px 10px;
   display: flex;
+  z-index:1;
 `
 const Movie = styled.div`
   padding: 8px;

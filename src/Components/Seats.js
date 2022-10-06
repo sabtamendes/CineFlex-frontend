@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getSeats } from "../services/getSeats";
 import Seat from "./Seat";
 import Footer from "./Footer";
+import axios from "axios";
 export default function Seats() {
     const [showtimes, setShowTimes] = useState(undefined);
-    const { id } = useParams();
+    const [dataInput, setDataInput] = useState("")
+    const { seatsId } = useParams();
 
     useEffect(() => {
         async function chairs() {
             try {
-                const chair = await getSeats(id);
+                const chair = await getSeats(seatsId);
                 setShowTimes(chair)
             } catch (error) {
                 console.log(error)
@@ -19,12 +21,31 @@ export default function Seats() {
         }
 
         chairs();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
+        const promise = axios.get(URL)
+
+        promise.then((res) => {
+            console.log(res.data)
+            setDataInput(res.data)
+        })
+
+        promise.catch((err) => {
+            console.log(err.response.data)
+        })
+    }, []);
+
+    function sendRequest() {
+
+
+    }
 
     if (showtimes === undefined) {
-        return <Loading>Carregando......:D</Loading>
+        return <Loading>Carregando......:D</Loading>;
     }
-    console.log(showtimes.movie.title)
+
     return (
         <>
             <Title>Selecione o(s) assento(s)</Title>
@@ -39,16 +60,29 @@ export default function Seats() {
                 )}
             </SeatsChooser>
 
+            <Selections>
+                <ButtonSelected></ButtonSelected>
+                <ButtonAvailable></ButtonAvailable>
+                <ButtonUnavailable></ButtonUnavailable>
+            </Selections>
+
+            <SpanSelected>Selecionado</SpanSelected>
+            <SpanAvailable>Disponível</SpanAvailable>
+            <SpanUnavailable>Indisponível</SpanUnavailable>
+
             <Paragraph>Nome do comprador(a):</Paragraph>
-            <InputStyle  placeholder="Digite seu nome..."></InputStyle>
+            <InputStyle placeholder="Digite seu nome..." ></InputStyle>
             <br></br>
 
             <Paragraph>CPF do comprador(a):</Paragraph>
-            <InputStyle  placeholder="Digite seu CPF..."></InputStyle>
+            <InputStyle placeholder="Digite seu CPF..." value={dataInput} onChange={(e) => setDataInput(e.target.value)}></InputStyle>
             <br></br>
-            <ButtonStyle>Reservar assento(s):</ButtonStyle>
 
-            <Footer movieTitle={showtimes.movie.title} moviePoster={showtimes.movie.posterURL} name={showtimes.name} day={showtimes.day.weekday} />
+            <Link to={`/forms/${seatsId}`} style={{ textDecoration: 'none' }}>
+                <ButtonStyle onClick={sendRequest}>Reservar assento(s):</ButtonStyle>
+            </Link>
+
+            <Footer title={showtimes.movie.title} posterURL={showtimes.movie.posterURL} name={showtimes.name} day={showtimes.day.weekday} />
         </>
     )
 }
@@ -57,7 +91,7 @@ display:flex;
 justify-content:center;
 
 margin-top:28%;
-margin-bottom:10%;
+margin-bottom:5%;
 font-family: 'Roboto', sans-serif;
 font-size: 20px;
 color: #22333b;
@@ -94,11 +128,55 @@ border-radius: 8px;
 
 `
 const ButtonStyle = styled.button`
-margin-top:80px;
-margin-left: 170px;
+margin-top:50px;
+margin-left: 160px;
 padding:10px;
 font-family: 'Roboto', sans-serif;
 font-size:19px;
 color: #adb6c4;
 background-color: #22333b;
+`
+const Selections = styled.div`
+display:flex;
+justify-content:center;
+`
+const ButtonSelected = styled.button`
+    width: 52px;
+    height: 52px;
+    margin:-1% 10% 2% 2%;
+    border-radius:50%;
+    border:none;
+    background-color: #1AAE9E;
+`
+const ButtonAvailable = styled.button`
+  width: 52px;
+    height: 52px;
+    margin:-1% 10% 2% 2%;
+    border-radius:50%;
+    border:none;
+    background-color: #C3CFD9;
+`
+const ButtonUnavailable = styled.button`
+   width: 52px;
+    height: 52px;
+    margin:-1% 10% 2% 2%;
+    border-radius:50%;
+    border:none;
+    background-color: #F7C52B;
+`
+const SpanSelected = styled.span`
+margin-right: 10px;
+margin-left:70px;
+font-size:20px;
+font-family: 'Roboto', sans-serif;
+`
+const SpanAvailable = styled.span`
+margin-left:15px;
+font-size:20px;
+font-family: 'Roboto', sans-serif;
+`
+const SpanUnavailable = styled.span`
+margin-left:21px;
+font-size:20px;
+font-family: 'Roboto', sans-serif;
 `

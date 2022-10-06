@@ -7,12 +7,12 @@ import { getSections } from "../services/getSections";
 
 export default function Sections() {
     const [showtimes, setShowTimes] = useState(undefined);
-    const { id } = useParams();
-
+    const { sectionId } = useParams();
+    console.log(sectionId)
     useEffect(() => {
         async function sections() {
             try {
-                const movies = await getSections(id);
+                const movies = await getSections(sectionId);
                 setShowTimes(movies)
             } catch (error) {
                 console.log(error)
@@ -24,7 +24,7 @@ export default function Sections() {
     if (showtimes === undefined) {
         return <Loading>Carregando...</Loading>
     }
-console.log(showtimes.title)
+
     return (
         <>
             <Title>Selecione o horário</Title>
@@ -38,7 +38,7 @@ console.log(showtimes.title)
                     />
                 )}
             </DaySection>
-            <Footer posterURL={showtimes.posterURL} title={showtimes.title}/>
+            <Footer  posterURL={showtimes.posterURL} title={showtimes.title}/>
         </>
     )
 }

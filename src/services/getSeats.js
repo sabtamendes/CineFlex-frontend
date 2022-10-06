@@ -1,7 +1,7 @@
 import  axios  from "axios";
 
 async function getSeats(id) {
-    console.log(id)
+
     const url = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${id}/seats`;
     try {
         const promise = await axios.get(url)
