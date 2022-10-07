@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Seat({ name, isAvaliable }) {
+export default function Seat({ name, isAvaliable, forms, handleForms}) {
     const [colorSelected, setColorSelected] = useState(false);
 
     function isSelected(name) {
@@ -18,8 +18,7 @@ export default function Seat({ name, isAvaliable }) {
     }
     return (
         <>
-            <EachSeat onClick={() => isSelected(name)} isAvaliable={isAvaliable} colorSelected={colorSelected} >{name}</EachSeat>
-
+            <EachSeat name="ids" value={forms.ids} onChange={handleForms} onClick={() => isSelected(name)} isAvaliable={isAvaliable} colorSelected={colorSelected} >{name}</EachSeat>
         </>
     )
 }

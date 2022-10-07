@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getSeats } from "../services/getSeats";
 import Seat from "./Seat";
 import Footer from "./Footer";
 import axios from "axios";
+
 export default function Seats() {
-    const [showtimes, setShowTimes] = useState(undefined);
-    const [dataInput, setDataInput] = useState("")
+    const navigate = useNavigate();
     const { seatsId } = useParams();
+    const [showtimes, setShowTimes] = useState(undefined);
+    const [forms, setForms] = useState({ ids: [], name: "", cpf: "" })
+    // const [ids, setIds] = useState([]);
+    // const [name, setName] = useState("");
+    // const [cpf, setCpf] = useState("");
+
+
 
     useEffect(() => {
         async function chairs() {
@@ -23,23 +30,27 @@ export default function Seats() {
         chairs();
     }, []);
 
-    useEffect(() => {
-        const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
-        const promise = axios.get(URL)
-
-        promise.then((res) => {
-            console.log(res.data)
-            setDataInput(res.data)
-        })
-
-        promise.catch((err) => {
-            console.log(err.response.data)
-        })
-    }, []);
-
+    function handleForm(e) {
+        const { name, value } = e.target;
+        console.log(value)
+        setForms({ ...forms, [name]: value })
+    }
     function sendRequest() {
 
+        const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
 
+        const body = { ...forms }
+
+        const promise = axios.post(URL, body)
+
+        promise.then((response) => {
+            console.log(response.data)
+           navigate("/forms");
+        })
+        promise.catch((error) => {
+            console.log(error.response.data)
+            alert(error.message)
+        })
     }
 
     if (showtimes === undefined) {
@@ -56,6 +67,8 @@ export default function Seats() {
                         key={item.id}
                         name={item.name}
                         isAvaliable={item.isAvailable}
+                        handleForm={handleForm}
+                        forms={forms}
                     />
                 )}
             </SeatsChooser>
@@ -70,18 +83,31 @@ export default function Seats() {
             <SpanAvailable>Disponível</SpanAvailable>
             <SpanUnavailable>Indisponível</SpanUnavailable>
 
-            <Paragraph>Nome do comprador(a):</Paragraph>
-            <InputStyle placeholder="Digite seu nome..." ></InputStyle>
+            <Label >Nome do comprador(a):</Label>
+            <InputStyle
+                name="name"
+                value={forms.name}
+                type="text"
+                onChange={handleForm}
+                placeholder="Digite seu nome..."
+            >
+            </InputStyle>
             <br></br>
 
-            <Paragraph>CPF do comprador(a):</Paragraph>
-            <InputStyle placeholder="Digite seu CPF..." value={dataInput} onChange={(e) => setDataInput(e.target.value)}></InputStyle>
+            <Label>CPF do comprador(a):</Label>
+            <InputStyle
+                name="cpf"
+                value={forms.cpf}
+                type="text"
+                onChange={handleForm}
+                placeholder="Digite seu CPF..."
+            >
+            </InputStyle>
             <br></br>
-
-            <Link to={`/forms/${seatsId}`} style={{ textDecoration: 'none' }}>
+            <ButtonStyle onClick={sendRequest}>Reservar assento(s):</ButtonStyle>
+            {/* <Link to={`/forms/${seatsId}`} style={{ textDecoration: 'none' }}>
                 <ButtonStyle onClick={sendRequest}>Reservar assento(s):</ButtonStyle>
-            </Link>
-
+            </Link> */}
             <Footer title={showtimes.movie.title} posterURL={showtimes.movie.posterURL} name={showtimes.name} day={showtimes.day.weekday} />
         </>
     )
@@ -106,7 +132,7 @@ const Loading = styled.h1`
 margin-top:30%;
 font-size:20px;
 `
-const Paragraph = styled.p`
+const Label = styled.p`
 font-size:25px;
 font-family: 'Roboto', sans-serif;
 margin-left:12%;
