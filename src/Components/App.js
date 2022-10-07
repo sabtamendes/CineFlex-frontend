@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import Movies from "./Movies";
 import Sections from "./Sections";
 import Seats from "./Seats";
-import Forms from "./Forms";
+import Sucess from "./Sucess";
 import {NoPageFound} from "./NoPageFound";
 export default function App() {
 
@@ -18,7 +18,7 @@ export default function App() {
                 <Route path="/" element={<Movies />} />
                 <Route path="/sections/:sectionId" element={<Sections />} />
                 <Route path="/seats/:seatsId" element={<Seats />} />
-                <Route path="/forms" element={<Forms />} />
+                <Route path="/sucess" element={<Sucess />} />
                 <Route path="*" element={<NoPageFound />}/>
             </Routes>
 

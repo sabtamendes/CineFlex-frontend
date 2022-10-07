@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Seat({ name, isAvaliable, forms, handleForms}) {
+export default function Seat({ name, isAvaliable, forms, handleForms }) {
     const [colorSelected, setColorSelected] = useState(false);
 
     function isSelected(name) {
@@ -12,7 +12,7 @@ export default function Seat({ name, isAvaliable, forms, handleForms}) {
         } if (!isAvaliable) {
             alert("Não está disponível")
             console.log(isAvaliable, name)
-        }else{
+        } else {
             console.log("está disponível", name)
         }
     }
@@ -28,7 +28,7 @@ const EachSeat = styled.button`
   height: 52px;
   border: 1px solid #808F9D;
   background: ${props => props.isAvaliable ? '#C3CFD9' : '#F7C52B'};
-  background-color: ${props => props.colorSelected ? '#1AAE9E' : '' };
+  background-color: ${props => props.colorSelected ? '#1AAE9E' : ''};
   border-radius: 50%;
   font-size: 25px;
   color: #000000;

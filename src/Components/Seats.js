@@ -45,7 +45,13 @@ export default function Seats() {
 
         promise.then((response) => {
             console.log(response.data)
-           navigate("/forms");
+            navigate("/sucess", {
+                state: {
+                    showtimes,
+                    forms,
+                    seatsId
+                },
+            });
         })
         promise.catch((error) => {
             console.log(error.response.data)
