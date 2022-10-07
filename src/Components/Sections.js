@@ -8,7 +8,7 @@ import { getSections } from "../services/getSections";
 export default function Sections() {
     const [showtimes, setShowTimes] = useState(undefined);
     const { sectionId } = useParams();
-    console.log(sectionId)
+
     useEffect(() => {
         async function sections() {
             try {
@@ -38,23 +38,23 @@ export default function Sections() {
                     />
                 )}
             </DaySection>
-            <Footer  posterURL={showtimes.posterURL} title={showtimes.title}/>
+
+            <Footer posterURL={showtimes.posterURL} title={showtimes.title} />
         </>
     )
 }
 const Title = styled.h1`
 display:flex;
 justify-content:center;
-
 margin-top:28%;
 font-family: 'Roboto', sans-serif;
-font-size: 20px;
+font-size: 26px;
 color: #22333b;
 `
 const DaySection = styled.div`
   padding: 0 83px;
   margin-top:10%;
-  margin-bottom: 117px;
+  margin-bottom: 30%;
 `
 const Loading = styled.h1`
 margin-top:30%;

@@ -1,15 +1,14 @@
 import styled from "styled-components";
 export default function Footer({ posterURL, title, name, day }) {
- 
+
   return (
     <Container>
-      <Movie>
 
+      <Movie>
         <img src={posterURL} />
       </Movie>
 
       <Info>
-
         <span>{title}</span>
 
         {name ?
@@ -19,6 +18,7 @@ export default function Footer({ posterURL, title, name, day }) {
           : ''
         }
       </Info>
+
     </Container>
   )
 }
@@ -39,8 +39,7 @@ const Movie = styled.div`
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-
-  & img {
+img {
     width: 60px;
     height: 100px;
     object-fit: cover;

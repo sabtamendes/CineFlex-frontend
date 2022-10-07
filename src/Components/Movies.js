@@ -10,14 +10,13 @@ export default function Movies() {
         async function moviesRender() {
             try {
                 const movies = await getMovies();
+                setImages(movies);
 
-                setImages(movies)
             } catch (error) {
                 console.log(error)
             }
         }
-
-        moviesRender()
+        moviesRender();
     }, []);
 
     if (images === undefined) {
@@ -26,8 +25,8 @@ export default function Movies() {
     return (
         <>
             <Title>Selecione o filme</Title>
-            <ListMovies>
 
+            <ListMovies>
                 {images.map(item =>
                     <Movie
                         key={item.id}
@@ -43,9 +42,9 @@ const Title = styled.h1`
 display:flex;
 justify-content:center;
 
-margin-top:28%;
+margin-top:24%;
 font-family: 'Roboto', sans-serif;
-font-size: 20px;
+font-size: 26px;
 color: #22333b;
 `
 const ListMovies = styled.div`

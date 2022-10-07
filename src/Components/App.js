@@ -1,16 +1,16 @@
 import GlobalStyle from "../assets/css/GlobalStyle";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./NavBar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Movies from "./Movies";
+import NavBar from "./NavBar";
 import Sections from "./Sections";
 import Seats from "./Seats";
 import Sucess from "./Sucess";
-import {NoPageFound} from "./NoPageFound";
+import { NoPageFound } from "./NoPageFound";
 export default function App() {
 
     return (
 
-        <BrowserRouter>
+        <Router>
             <GlobalStyle />
             <NavBar />
 
@@ -19,10 +19,10 @@ export default function App() {
                 <Route path="/sections/:sectionId" element={<Sections />} />
                 <Route path="/seats/:seatsId" element={<Seats />} />
                 <Route path="/sucess" element={<Sucess />} />
-                <Route path="*" element={<NoPageFound />}/>
+                <Route path="*" element={<NoPageFound />} />
             </Routes>
 
-        </BrowserRouter>
+        </Router>
 
     )
 }

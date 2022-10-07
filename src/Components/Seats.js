@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
-import { getSeats } from "../services/getSeats";
-import Seat from "./Seat";
-import Footer from "./Footer";
 import axios from "axios";
+import styled from "styled-components";
+
+import { getSeats } from "../services/getSeats";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Footer from "./Footer";
+import Seat from "./Seat";
 
 export default function Seats() {
     const navigate = useNavigate();
     const { seatsId } = useParams();
     const [showtimes, setShowTimes] = useState(undefined);
-    const [forms, setForms] = useState({ ids: [], name: "", cpf: "" })
-    // const [ids, setIds] = useState([]);
-    // const [name, setName] = useState("");
-    // const [cpf, setCpf] = useState("");
-
-
+    const [ids, setIds] = useState([]);
+    const [name, setName] = useState("");
+    const [cpf, setCpf] = useState("");
 
     useEffect(() => {
         async function chairs() {
@@ -26,37 +25,36 @@ export default function Seats() {
                 console.log(error)
             }
         }
-
         chairs();
     }, []);
 
-    function handleForm(e) {
-        const { name, value } = e.target;
-        console.log(value)
-        setForms({ ...forms, [name]: value })
-    }
     function sendRequest() {
+        if (name === "" || cpf === "" || ids.length <= 0) {
+            alert("Preencha corretamente!");
+        } else {
+            const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
 
-        const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
+            const body = { name, cpf, ids }
 
-        const body = { ...forms }
+            const promise = axios.post(URL, body)
 
-        const promise = axios.post(URL, body)
+            promise.then((response) => {
 
-        promise.then((response) => {
-            console.log(response.data)
-            navigate("/sucess", {
-                state: {
-                    showtimes,
-                    forms,
-                    seatsId
-                },
-            });
-        })
-        promise.catch((error) => {
-            console.log(error.response.data)
-            alert(error.message)
-        })
+                console.log(response.data)
+                navigate("/sucess", {
+                    state: {
+                        showtimes: showtimes,
+                        name,
+                        cpf,
+                        ids: [...ids]
+                    },
+                });
+            })
+            promise.catch((error) => {
+                console.log(error.response.data)
+                alert(error.message)
+            })
+        }
     }
 
     if (showtimes === undefined) {
@@ -73,8 +71,8 @@ export default function Seats() {
                         key={item.id}
                         name={item.name}
                         isAvaliable={item.isAvailable}
-                        handleForm={handleForm}
-                        forms={forms}
+                        ids={ids}
+                        setIds={setIds}
                     />
                 )}
             </SeatsChooser>
@@ -92,28 +90,29 @@ export default function Seats() {
             <Label >Nome do comprador(a):</Label>
             <InputStyle
                 name="name"
-                value={forms.name}
                 type="text"
-                onChange={handleForm}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Digite seu nome..."
+                required
             >
             </InputStyle>
+
             <br></br>
 
             <Label>CPF do comprador(a):</Label>
             <InputStyle
                 name="cpf"
-                value={forms.cpf}
                 type="text"
-                onChange={handleForm}
+                onChange={(e) => setCpf(e.target.value)}
                 placeholder="Digite seu CPF..."
+                required
             >
             </InputStyle>
+
             <br></br>
+
             <ButtonStyle onClick={sendRequest}>Reservar assento(s):</ButtonStyle>
-            {/* <Link to={`/forms/${seatsId}`} style={{ textDecoration: 'none' }}>
-                <ButtonStyle onClick={sendRequest}>Reservar assento(s):</ButtonStyle>
-            </Link> */}
+
             <Footer title={showtimes.movie.title} posterURL={showtimes.movie.posterURL} name={showtimes.name} day={showtimes.day.weekday} />
         </>
     )
@@ -121,11 +120,10 @@ export default function Seats() {
 const Title = styled.h1`
 display:flex;
 justify-content:center;
-
-margin-top:28%;
+margin-top:24%;
 margin-bottom:5%;
 font-family: 'Roboto', sans-serif;
-font-size: 20px;
+font-size: 26px;
 color: #22333b;
 `
 const SeatsChooser = styled.div`
@@ -140,30 +138,37 @@ font-size:20px;
 `
 const Label = styled.p`
 font-size:25px;
+font-weight: 430;
 font-family: 'Roboto', sans-serif;
 margin-left:12%;
 margin-bottom:-2%;
-color: #0d3b66;
+color:#22333b;
 `
 const InputStyle = styled.input`
 width:50%;
 margin-top:3.5%;
-padding:2%;
+padding:2.5%;
 background: white;
-font-family: 'Roboto', sans-serif;
-font-size: 20px;
+font-size:25px;
 margin-left:12%;
-border-radius: 8px;
+border: 1px solid #22333b;
+border-radius: 10px;
 &::placeholder{
-    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    color:#22333b;
 }
-
 `
 const ButtonStyle = styled.button`
-margin-top:50px;
-margin-left: 160px;
-padding:10px;
+margin-top:35px;
+margin-left: 33%;
+padding:15px;
 font-family: 'Roboto', sans-serif;
+border-radius:6px;
+border:none;
 font-size:19px;
 color: #adb6c4;
 background-color: #22333b;
@@ -186,7 +191,7 @@ const ButtonAvailable = styled.button`
     margin:-1% 10% 2% 2%;
     border-radius:50%;
     border:none;
-    background-color: #C3CFD9;
+    background-color: #84a59d;
 `
 const ButtonUnavailable = styled.button`
    width: 52px;
@@ -198,17 +203,20 @@ const ButtonUnavailable = styled.button`
 `
 const SpanSelected = styled.span`
 margin-right: 10px;
-margin-left:70px;
+margin-left:90px;
+color: #22333b;
 font-size:20px;
 font-family: 'Roboto', sans-serif;
 `
 const SpanAvailable = styled.span`
-margin-left:15px;
+margin-left:20px;
 font-size:20px;
+color: #22333b;
 font-family: 'Roboto', sans-serif;
 `
 const SpanUnavailable = styled.span`
-margin-left:21px;
+margin-left:27px;
 font-size:20px;
+color: #22333b;
 font-family: 'Roboto', sans-serif;
 `

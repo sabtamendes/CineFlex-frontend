@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-export  const NoPageFound = () => {
+
+export const NoPageFound = () => {
+
     return <Title>No Page Found</Title>
 }
 

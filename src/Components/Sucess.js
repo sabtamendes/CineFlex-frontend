@@ -1,38 +1,41 @@
-import { useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLocation, Link } from 'react-router-dom';
+
 export default function Sucess() {
     const location = useLocation();
+
     return (
         <>
             <Title>Pedido feito <br></br> com sucesso!</Title>
+
             <Container>
+
                 <Subtitle>Filme e sessão</Subtitle>
-                <p>Enola Holmes</p>
-                <p>24/06/2021 15:00</p>
+                <p>{location.state.showtimes.movie.title}</p>
+                <p>{location.state.showtimes.day.date} - {location.state.showtimes.name}</p>
+
                 <Subtitle>Ingressos</Subtitle>
-                <p>Assento 15</p>
-                <p>Assento 16</p>
+                {location.state.ids.map((value) => (
+                    <p key={value}>Assento: {value}</p>
+                ))}
+
                 <Subtitle>Comprador(a)</Subtitle>
-                <p>Nome: João da Silva Sauro</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {location.state.name}</p>
+                <p>CPF: {location.state.cpf}</p>
+
             </Container>
-            <Link to="/"><StyledButton>Voltar para Home</StyledButton></Link>
+
+            <Link to="/">
+                <StyledButton>Voltar para Home</StyledButton>
+            </Link>
         </>
-        //     <>
-        //   <span>
-        //     Nome: {location.state.form} - CPF:{location.state.form}
-        //   </span>
-        //   {location.state.seatsId.map((value) => (
-        //     <span>Assento: {value}</span>
-        //   ))}
-        // </>
     )
 }
 const Title = styled.h1`
 text-align: center;
 margin-top:25%;
 font-family: Roboto, sans-serif;
-color: #317A6D;
+color: #1AAE9E;
 `
 const Container = styled.div`
 padding-left: 15%;
