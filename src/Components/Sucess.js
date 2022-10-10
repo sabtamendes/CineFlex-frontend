@@ -55,7 +55,7 @@ margin-bottom:30px;
 color: #293845;
 `
 const StyledButton = styled.button`
-width:38%;
+width:50%;
 height:50px;
 margin:18% 31%;
 font-size: 25px;

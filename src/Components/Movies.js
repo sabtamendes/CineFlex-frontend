@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Movie from "./Movie";
+import Spinner from "./Spinner";
 import { getMovies } from "../services/getMovies";
 
 export default function Movies() {
@@ -19,9 +20,11 @@ export default function Movies() {
         moviesRender();
     }, []);
 
+
     if (images === undefined) {
-        return <Loading>Carregando..</Loading>
+        return <Spinner />
     }
+
     return (
         <>
             <Title>Selecione o filme</Title>
@@ -54,8 +57,4 @@ flex-wrap:wrap;
 cursor: pointer;
 
 margin-top:10%;
-`
-const Loading = styled.h1`
-margin-top:30%;
-font-size:20px;
 `

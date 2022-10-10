@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Footer from "./Footer";
+import Spinner from "./Spinner";
 import Section from "./Section";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,11 +19,11 @@ export default function Sections() {
                 console.log(error)
             }
         }
-
-        sections()
+        sections();
     }, [])
+
     if (showtimes === undefined) {
-        return <Loading>Carregando...</Loading>
+        return <Spinner />
     }
 
     return (
@@ -56,8 +57,8 @@ const DaySection = styled.div`
   margin-top:10%;
   margin-bottom: 30%;
 `
-const Loading = styled.h1`
-margin-top:30%;
-font-size:20px;
+// const Loading = styled.h1`
+// margin-top:30%;
+// font-size:20px;
 
-`
+// `

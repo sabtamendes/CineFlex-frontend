@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Footer from "./Footer";
 import Seat from "./Seat";
+import Spinner from "./Spinner";
 
 export default function Seats() {
     const navigate = useNavigate();
@@ -34,31 +35,30 @@ export default function Seats() {
         } else {
             const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many"
 
-            const body = { name, cpf, ids }
+            // const body = { name: name, cpf: cpf, ids: [...ids] }
 
-            const promise = axios.post(URL, body)
+            const promise = axios.post(URL, { name: name, cpf: cpf, ids: [...ids] })
 
             promise.then((response) => {
+                console.log(response)
 
-                console.log(response.data)
                 navigate("/sucess", {
                     state: {
                         showtimes: showtimes,
-                        name,
-                        cpf,
+                        name: name,
+                        cpf: cpf,
                         ids: [...ids]
                     },
                 });
             })
             promise.catch((error) => {
                 console.log(error.response.data)
-                alert(error.message)
             })
         }
     }
 
     if (showtimes === undefined) {
-        return <Loading>Carregando......:D</Loading>;
+        return <Spinner />
     }
 
     return (
@@ -93,7 +93,6 @@ export default function Seats() {
                 type="text"
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Digite seu nome..."
-                required
             >
             </InputStyle>
 
@@ -102,10 +101,9 @@ export default function Seats() {
             <Label>CPF do comprador(a):</Label>
             <InputStyle
                 name="cpf"
-                type="text"
+                type="number"
                 onChange={(e) => setCpf(e.target.value)}
                 placeholder="Digite seu CPF..."
-                required
             >
             </InputStyle>
 
@@ -131,10 +129,6 @@ const SeatsChooser = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 85%;
-`
-const Loading = styled.h1`
-margin-top:30%;
-font-size:20px;
 `
 const Label = styled.p`
 font-size:25px;
