@@ -54,6 +54,5 @@ display:flex;
 justify-content:space-evenly;
 flex-wrap:wrap;
 cursor: pointer;
-
 margin-top:8%;
 `

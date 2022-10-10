@@ -53,7 +53,7 @@ font-size: 20px;
 color: #22333b;
 `
 const DaySection = styled.div`
-  padding: 0 80px;
+  padding: 0 40px;
   margin-top:10%;
   margin-bottom: 30%;
 `
