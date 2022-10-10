@@ -8,16 +8,16 @@ export default function NavBar() {
 }
 const Header = styled.div`
 width:100%;
-height:110px;
+height:75px;
 position: fixed;
 top:0;
 right:0;
 background: #22333b;
 h1{
     text-align: center;
-    padding: 5px;
+    padding: 18px;
     font-family: 'Roboto', sans-serif;
-    font-size: 40px;
+    font-size: 35px;
     color: #adb6c4;
 }
 `

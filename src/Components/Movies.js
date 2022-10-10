@@ -36,7 +36,6 @@ export default function Movies() {
                         item={item}
                     />
                 )}
-
             </ListMovies>
         </>
     )
@@ -45,9 +44,9 @@ const Title = styled.h1`
 display:flex;
 justify-content:center;
 
-margin-top:24%;
+margin-top:28%;
 font-family: 'Roboto', sans-serif;
-font-size: 26px;
+font-size: 20px;
 color: #22333b;
 `
 const ListMovies = styled.div`
@@ -56,5 +55,5 @@ justify-content:space-evenly;
 flex-wrap:wrap;
 cursor: pointer;
 
-margin-top:10%;
+margin-top:8%;
 `

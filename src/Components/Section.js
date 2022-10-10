@@ -15,16 +15,17 @@ const DayTitle = styled.p`
 font-family: 'Roboto', sans-serif;
 color: #22333b;
 font-weight: 500;
-font-size: 22px;
+font-size: 16px;
+margin-bottom:2%;
 `
 const DayButton = styled.button`
   background-color: #22333b;
   border-radius: 3px;
   border:none;
-  width: 83px;
-  height: 43px;
+  width: 60px;
+  height: 35px;
   display: inline;
-  font-size:18px;
+  font-size:14px;
   font-weight:bold;
   flex-direction: row;
   justify-content: center;
@@ -32,6 +33,6 @@ const DayButton = styled.button`
   align-items: center;
   color: #adb6c4;
   margin-right: 8px;
-  margin-bottom: 2%;
+  margin-bottom: 8%;
   cursor: pointer;
 `

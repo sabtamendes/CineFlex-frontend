@@ -9,7 +9,6 @@ export default function Spinner() {
     )
 }
 const Screen = styled.div`
-    /* visibility: ${props => props.isLoading ? "visible" : "hidden"}; */
     width: 100%;
     height: 100%;
     display: flex;
@@ -24,7 +23,9 @@ const Screen = styled.div`
     bottom:0;
     background: #1B2538;
     img{
+        width:100%;
+        height:25%;
         margin-bottom: 45%;
-        margin-right: 55%;
+        margin-right: 5%;
     }
 `

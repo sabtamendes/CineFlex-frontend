@@ -49,16 +49,11 @@ display:flex;
 justify-content:center;
 margin-top:28%;
 font-family: 'Roboto', sans-serif;
-font-size: 26px;
+font-size: 20px;
 color: #22333b;
 `
 const DaySection = styled.div`
-  padding: 0 83px;
+  padding: 0 80px;
   margin-top:10%;
   margin-bottom: 30%;
 `
-// const Loading = styled.h1`
-// margin-top:30%;
-// font-size:20px;
-
-// `
