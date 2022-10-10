@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Seat({ name, isAvaliable, ids, setIds }) {
+export default function Seat({ name, isAvaliable, ids, setIds, id, chairNumber, setChairNumber }) {
     const [colorSelected, setColorSelected] = useState(false);
 
     function isSelected(name) {
         if (name) {
             setColorSelected(!colorSelected);
-            setIds([...ids, name]);
+            setIds([...ids, id]);
+            setChairNumber([...chairNumber, name]);
         } if (!isAvaliable) {
             alert("Não está disponível");
         }

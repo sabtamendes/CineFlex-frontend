@@ -16,7 +16,7 @@ export default function Seats() {
     const [ids, setIds] = useState([]);
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
-
+    const [chairNumber, setChairNumber] = useState([]);
     useEffect(() => {
         async function chairs() {
             try {
@@ -47,7 +47,7 @@ export default function Seats() {
                         showtimes: showtimes,
                         name: name,
                         cpf: cpf,
-                        ids: [...ids]
+                        chairNumber: [...chairNumber]
                     },
                 });
             })
@@ -71,8 +71,11 @@ export default function Seats() {
                         key={item.id}
                         name={item.name}
                         isAvaliable={item.isAvailable}
+                        id={item.id}
                         ids={ids}
                         setIds={setIds}
+                        chairNumber={chairNumber}
+                        setChairNumber={setChairNumber}
                     />
                 )}
             </SeatsChooser>

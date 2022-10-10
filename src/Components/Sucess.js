@@ -15,7 +15,7 @@ export default function Sucess() {
                 <p>{location.state.showtimes.day.date} - {location.state.showtimes.name}</p>
 
                 <Subtitle>Ingressos</Subtitle>
-                {location.state.ids.map((value) => (
+                {location.state.chairNumber.map((value) => (
                     <p key={value}>Assento: {value}</p>
                 ))}
 
